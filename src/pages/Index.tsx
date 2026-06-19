@@ -92,9 +92,12 @@ const Section = ({ id, eyebrow, title, children }: { id: string; eyebrow: string
   </section>
 );
 
+const VK_DONAT_URL = 'https://vk.com/donut/undefined';
+
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [donatPlan, setDonatPlan] = useState<'month' | 'year'>('month');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -339,6 +342,68 @@ const Index = () => {
                 </div>
               </a>
             ))}
+          </div>
+        </Section>
+      </div>
+
+      {/* DONAT */}
+      <div className="border-t border-border bg-card/20">
+        <Section id="support" eyebrow="Поддержка" title="Поддержать артиста">
+          <div className="max-w-lg mx-auto">
+            <div className="border border-border bg-card overflow-hidden">
+              <div className="relative aspect-[16/7] overflow-hidden">
+                <img
+                  src={PHOTO_LETI}
+                  alt="Степан Пронин"
+                  className="w-full h-full object-cover object-top"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+              </div>
+              <div className="p-8">
+                <h3 className="font-display text-2xl uppercase mb-2">Сообщество</h3>
+                <p className="text-muted-foreground text-sm mb-8">Поддержи артиста и получи доступ к эксклюзивным материалам</p>
+
+                {/* Тарифы */}
+                <div className="grid grid-cols-2 gap-3 mb-6">
+                  {(['month', 'year'] as const).map((p) => (
+                    <button
+                      key={p}
+                      onClick={() => setDonatPlan(p)}
+                      className={`p-4 border text-left transition-all duration-200 ${
+                        donatPlan === p
+                          ? 'border-gold bg-gold/10'
+                          : 'border-border bg-background hover:border-gold/50'
+                      }`}
+                    >
+                      <div className={`text-xs uppercase tracking-[0.2em] mb-1 ${donatPlan === p ? 'text-gold' : 'text-muted-foreground'}`}>
+                        {p === 'month' ? 'Месяц' : 'Год'}
+                      </div>
+                      <div className={`font-display text-2xl ${donatPlan === p ? 'text-foreground' : 'text-muted-foreground'}`}>
+                        {p === 'month' ? '150' : '1800'}
+                        <span className="text-base ml-1">₽</span>
+                      </div>
+                      {p === 'year' && (
+                        <div className="text-xs text-gold mt-1">−2 месяца в подарок</div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+
+                <a
+                  href={VK_DONAT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 w-full py-4 bg-gold text-background font-display text-sm uppercase tracking-[0.25em] hover:opacity-90 active:scale-[0.98] transition-all duration-150"
+                >
+                  <Icon name="Heart" size={16} />
+                  Поддержать — {donatPlan === 'month' ? '150 ₽/мес' : '1800 ₽/год'}
+                </a>
+
+                <p className="text-xs text-muted-foreground mt-5 leading-relaxed text-center">
+                  Деньги списываются раз в 30 или 360 дней. Отменить поддержку можно в любое время.
+                </p>
+              </div>
+            </div>
           </div>
         </Section>
       </div>
