@@ -6,6 +6,8 @@ interface Track {
   album: string;
   duration: string;
   cover: string;
+  plays: number;
+  likes: number;
 }
 
 const sources = [
@@ -21,16 +23,34 @@ const COVERS = {
 };
 
 const tracks: Track[] = [
-  { title: 'LETI', album: 'Сингл, 2024', duration: '3:48', cover: COVERS.leti },
-  { title: 'GOOD BYE', album: 'Сингл, 2024', duration: '4:12', cover: COVERS.goodbye },
-  { title: 'GOODBYE (The Track)', album: 'Nightfall & Alexander', duration: '3:31', cover: COVERS.goodbye2 },
-  { title: 'Дорогами судьбы', album: 'Сингл, 2023', duration: '4:05', cover: COVERS.leti },
+  { title: 'LETI', album: 'Сингл, 2024', duration: '3:48', cover: COVERS.leti, plays: 24800, likes: 1340 },
+  { title: 'GOOD BYE', album: 'Сингл, 2024', duration: '4:12', cover: COVERS.goodbye, plays: 18200, likes: 970 },
+  { title: 'GOODBYE (The Track)', album: 'Nightfall & Alexander', duration: '3:31', cover: COVERS.goodbye2, plays: 11600, likes: 620 },
+  { title: 'Дорогами судьбы', album: 'Сингл, 2023', duration: '4:05', cover: COVERS.leti, plays: 9400, likes: 510 },
 ];
+
+const fmt = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}K` : String(n);
 
 const MusicPlayer = () => {
   const [source, setSource] = useState<string>('vk');
   const [active, setActive] = useState<number>(0);
   const [playing, setPlaying] = useState<boolean>(false);
+  const [liked, setLiked] = useState<Set<number>>(new Set());
+  const [likeCounts, setLikeCounts] = useState<number[]>(tracks.map((t) => t.likes));
+
+  const toggleLike = (e: React.MouseEvent, i: number) => {
+    e.stopPropagation();
+    setLiked((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) { next.delete(i); } else { next.add(i); }
+      return next;
+    });
+    setLikeCounts((prev) => {
+      const next = [...prev];
+      next[i] = liked.has(i) ? tracks[i].likes : tracks[i].likes + 1;
+      return next;
+    });
+  };
 
   const currentSource = sources.find((s) => s.id === source)!;
 
@@ -127,9 +147,25 @@ const MusicPlayer = () => {
                 >
                   {t.title}
                 </div>
-                <div className="text-xs text-muted-foreground truncate">{t.album}</div>
+                <div className="flex items-center gap-3 mt-0.5">
+                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <Icon name="Headphones" size={11} />
+                    {fmt(t.plays)}
+                  </span>
+                </div>
               </div>
-              <span className="text-xs text-muted-foreground tabular-nums">{t.duration}</span>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={(e) => toggleLike(e, i)}
+                  className={`flex items-center gap-1 text-xs transition-colors ${
+                    liked.has(i) ? 'text-red-400' : 'text-muted-foreground hover:text-red-400'
+                  }`}
+                >
+                  <Icon name="Heart" size={14} />
+                  {fmt(likeCounts[i])}
+                </button>
+                <span className="text-xs text-muted-foreground tabular-nums">{t.duration}</span>
+              </div>
             </button>
           ))}
         </div>

@@ -284,7 +284,7 @@ const Index = () => {
               </button>
             ))}
           </div>
-          <div className="text-xs text-muted-foreground uppercase tracking-[0.2em]">© 2024 Все права защищены</div>
+          <div className="text-xs text-muted-foreground uppercase tracking-[0.2em]">© 2026 Все права защищены</div>
         </div>
       </footer>
     </div>
