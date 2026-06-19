@@ -3,7 +3,14 @@ import Icon from '@/components/ui/icon';
 import MusicPlayer from '@/components/MusicPlayer';
 
 const HERO_IMG =
-  'https://cdn.poehali.dev/projects/e433ebfe-8838-4055-8d3c-96b8cb4524bd/files/b349acd0-6b61-47d9-b215-43f7ec164840.jpg';
+  'https://cdn.poehali.dev/projects/e433ebfe-8838-4055-8d3c-96b8cb4524bd/bucket/823ac21d-c62f-4085-92b9-9c4854a7f16b.jpg';
+const PHOTO_LETI =
+  'https://cdn.poehali.dev/projects/e433ebfe-8838-4055-8d3c-96b8cb4524bd/bucket/fa8ef274-e464-4213-ada4-0d3babc15329.jpg';
+const PHOTO_GOODBYE =
+  'https://cdn.poehali.dev/projects/e433ebfe-8838-4055-8d3c-96b8cb4524bd/bucket/c2f741ad-f470-4742-a693-e689c28ffe47.jpg';
+const PHOTO_GOODBYE2 =
+  'https://cdn.poehali.dev/projects/e433ebfe-8838-4055-8d3c-96b8cb4524bd/bucket/3a514a30-3b0f-4ac9-ba5a-17ef69bb7892.jpg';
+const GALLERY = [HERO_IMG, PHOTO_LETI, PHOTO_GOODBYE, PHOTO_GOODBYE2, PHOTO_LETI, HERO_IMG, PHOTO_GOODBYE, PHOTO_GOODBYE2];
 
 const nav = [
   { id: 'home', label: 'Главная' },
@@ -224,10 +231,10 @@ const Index = () => {
       {/* GALLERY */}
       <Section id="gallery" eyebrow="Кадры" title="Галерея">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+          {GALLERY.map((img, i) => (
             <div key={i} className={`relative overflow-hidden group border border-border ${i % 5 === 0 ? 'col-span-2 row-span-2' : ''}`}>
               <img
-                src={HERO_IMG}
+                src={img}
                 alt={`Кадр ${i + 1}`}
                 className="w-full h-full object-cover aspect-square grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
               />
