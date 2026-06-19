@@ -18,8 +18,44 @@ const nav = [
   { id: 'music', label: 'Музыка' },
   { id: 'projects', label: 'Проекты' },
   { id: 'events', label: 'События' },
+  { id: 'rutv', label: 'РУ.ТВ' },
   { id: 'gallery', label: 'Галерея' },
   { id: 'media', label: 'Медиа' },
+];
+
+const rutvAfisha = [
+  {
+    img: 'https://cdn.poehali.dev/projects/e433ebfe-8838-4055-8d3c-96b8cb4524bd/bucket/5bc90dbd-1ebe-467c-a9f3-6c8b992294fd.jpg',
+    tag: 'Премия',
+    date: '21 мая',
+    place: 'ВТБ Арена',
+    title: '15-я Русская Музыкальная Премия РУ.ТВ',
+    desc: 'Юбилейная церемония с участием звёзд российской эстрады.',
+  },
+  {
+    img: 'https://cdn.poehali.dev/projects/e433ebfe-8838-4055-8d3c-96b8cb4524bd/bucket/c15145ed-2934-4a82-bd76-844ec1936b6d.jpg',
+    tag: 'Афиша',
+    date: 'Эфир',
+    place: 'Телеканал РУ.ТВ',
+    title: 'Золотой Граммофон',
+    desc: 'Самое красивое музыкальное событие года в эфире РУ.ТВ.',
+  },
+  {
+    img: 'https://cdn.poehali.dev/projects/e433ebfe-8838-4055-8d3c-96b8cb4524bd/bucket/cc2ed403-7da1-4f87-94df-ba2537519f5b.jpg',
+    tag: 'Репортаж',
+    date: 'Афиша',
+    place: 'Большой Театр',
+    title: 'Золотой Граммофон: репетиция уникального номера',
+    desc: 'Главная интрига церемонии — за кулисами Большого театра.',
+  },
+  {
+    img: 'https://cdn.poehali.dev/projects/e433ebfe-8838-4055-8d3c-96b8cb4524bd/bucket/9a4f61cb-6724-47aa-bcfc-2a293082c51e.jpg',
+    tag: 'Концерт',
+    date: '5 января · 17:00',
+    place: 'Телеканал РУ.ТВ',
+    title: 'Юбилейный концерт Елены Север',
+    desc: 'Вечер, наполненный музыкой и эмоциями на РУ.ТВ.',
+  },
 ];
 
 const projects = [
@@ -227,6 +263,48 @@ const Index = () => {
           </div>
         </Section>
       </div>
+
+      {/* RUTV */}
+      <Section id="rutv" eyebrow="Телеканал РУ.ТВ" title="Афиша РУ.ТВ">
+        <div className="grid md:grid-cols-2 gap-6">
+          {rutvAfisha.map((item, i) => (
+            <div
+              key={i}
+              className="group relative overflow-hidden border border-border bg-card cursor-pointer"
+              style={{ animationDelay: `${i * 0.12}s` }}
+            >
+              <div className="relative overflow-hidden aspect-[16/9]">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+                <div className="absolute top-4 left-4 flex gap-2">
+                  <span className="bg-primary text-primary-foreground text-xs font-display uppercase tracking-[0.2em] px-3 py-1">
+                    {item.tag}
+                  </span>
+                </div>
+                <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-gold/20 border border-gold/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  <Icon name="ArrowUpRight" size={18} className="text-gold" />
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-gold text-xs uppercase tracking-[0.25em] font-display">{item.date}</span>
+                  <span className="w-1 h-1 rounded-full bg-border" />
+                  <span className="text-muted-foreground text-xs uppercase tracking-[0.2em]">{item.place}</span>
+                </div>
+                <h3 className="font-display text-xl uppercase leading-snug mb-2 group-hover:text-gold transition-colors duration-300">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
+              <div className="absolute bottom-0 left-0 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-500" />
+            </div>
+          ))}
+        </div>
+      </Section>
 
       {/* GALLERY */}
       <Section id="gallery" eyebrow="Кадры" title="Галерея">
