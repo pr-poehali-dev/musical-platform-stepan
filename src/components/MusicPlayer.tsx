@@ -9,9 +9,9 @@ interface Track {
 }
 
 const sources = [
-  { id: 'vk', label: 'ВК Музыка', icon: 'Music2' },
-  { id: 'yandex', label: 'Яндекс Музыка', icon: 'Disc3' },
-  { id: 'shanson', label: 'Радио Шансон', icon: 'Radio' },
+  { id: 'vk', label: 'ВК Музыка', icon: 'Music2', url: 'https://vk.ru/id1066346666' },
+  { id: 'yandex', label: 'Яндекс Музыка', icon: 'Disc3', url: '' },
+  { id: 'shanson', label: 'Радио Шансон', icon: 'Radio', url: '' },
 ] as const;
 
 const COVERS = {
@@ -31,6 +31,23 @@ const MusicPlayer = () => {
   const [source, setSource] = useState<string>('vk');
   const [active, setActive] = useState<number>(0);
   const [playing, setPlaying] = useState<boolean>(false);
+
+  const currentSource = sources.find((s) => s.id === source)!;
+
+  const handlePlay = () => {
+    if (currentSource.url) {
+      window.open(currentSource.url, '_blank');
+    }
+    setPlaying((p) => !p);
+  };
+
+  const handleTrackClick = (i: number) => {
+    setActive(i);
+    setPlaying(true);
+    if (currentSource.url) {
+      window.open(currentSource.url, '_blank');
+    }
+  };
 
   return (
     <div className="border border-border bg-card/60 backdrop-blur-sm">
@@ -56,16 +73,16 @@ const MusicPlayer = () => {
           <div className="relative shrink-0 w-20 h-20 overflow-hidden border border-border">
             <img src={tracks[active].cover} alt={tracks[active].title} className="w-full h-full object-cover" />
             <button
-              onClick={() => setPlaying((p) => !p)}
+              onClick={handlePlay}
               className="absolute inset-0 flex items-center justify-center bg-background/50 hover:bg-background/30 transition-colors text-foreground"
               aria-label="play"
             >
               <Icon name={playing ? 'Pause' : 'Play'} size={26} className="text-gold" />
             </button>
           </div>
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <div className="text-xs uppercase tracking-[0.25em] text-gold mb-1">
-              {sources.find((s) => s.id === source)?.label}
+              {currentSource.label}
             </div>
             <div className="font-display text-2xl text-foreground truncate">
               {tracks[active].title}
@@ -85,14 +102,11 @@ const MusicPlayer = () => {
           )}
         </div>
 
-        <div className="space-y-1">
+        <div className="space-y-1 mb-6">
           {tracks.map((t, i) => (
             <button
               key={i}
-              onClick={() => {
-                setActive(i);
-                setPlaying(true);
-              }}
+              onClick={() => handleTrackClick(i)}
               className={`w-full flex items-center gap-4 px-3 py-2 text-left transition-colors ${
                 active === i ? 'bg-secondary' : 'hover:bg-secondary/50'
               }`}
@@ -119,6 +133,24 @@ const MusicPlayer = () => {
             </button>
           ))}
         </div>
+
+        {currentSource.url && (
+          <a
+            href={currentSource.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-3 w-full py-3 border border-gold/40 text-gold hover:bg-gold/10 transition-colors text-xs uppercase tracking-[0.25em] font-display"
+          >
+            <Icon name="ExternalLink" size={15} />
+            Открыть всю музыку в {currentSource.label}
+          </a>
+        )}
+        {!currentSource.url && (
+          <div className="flex items-center justify-center gap-2 w-full py-3 border border-border text-muted-foreground text-xs uppercase tracking-[0.2em] font-display">
+            <Icon name="Clock" size={14} />
+            Ссылка скоро будет добавлена
+          </div>
+        )}
       </div>
     </div>
   );
