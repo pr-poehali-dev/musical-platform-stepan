@@ -92,7 +92,7 @@ const Section = ({ id, eyebrow, title, children }: { id: string; eyebrow: string
   </section>
 );
 
-const VK_DONAT_URL = 'https://vk.com/donut/undefined';
+const VK_DONAT_URL = 'https://vk.com/donut/id1066346666';
 
 const Index = () => {
   const [scrolled, setScrolled] = useState(false);
