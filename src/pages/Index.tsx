@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import MusicPlayer from '@/components/MusicPlayer';
+import SinglePromo from '@/components/SinglePromo';
 
 const HERO_IMG =
   'https://cdn.poehali.dev/projects/e433ebfe-8838-4055-8d3c-96b8cb4524bd/bucket/823ac21d-c62f-4085-92b9-9c4854a7f16b.jpg';
@@ -187,6 +188,9 @@ const Index = () => {
           <Icon name="ChevronDown" size={28} className="animate-bounce" />
         </button>
       </section>
+
+      {/* SINGLE PROMO */}
+      <SinglePromo />
 
       {/* BIO */}
       <Section id="bio" eyebrow="Биография" title="Путь артиста">
