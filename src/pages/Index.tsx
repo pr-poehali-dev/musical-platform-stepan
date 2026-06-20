@@ -18,7 +18,6 @@ const nav = [
   { id: 'bio', label: 'Биография' },
   { id: 'music', label: 'Музыка' },
   { id: 'projects', label: 'Проекты' },
-  { id: 'events', label: 'События' },
   { id: 'rutv', label: 'РУ.ТВ' },
   { id: 'gallery', label: 'Галерея' },
   { id: 'media', label: 'Медиа' },
@@ -65,12 +64,6 @@ const projects = [
   { title: 'Радио-проект «Шансон Live»', year: '2023', desc: 'Серия эфирных записей и акустических версий песен.', icon: 'Radio' },
 ];
 
-const events = [
-  { date: '12 июля', city: 'Москва', place: 'Концертный зал «Россия»', status: 'Билеты' },
-  { date: '26 июля', city: 'Санкт-Петербург', place: 'БКЗ «Октябрьский»', status: 'Билеты' },
-  { date: '09 авг', city: 'Казань', place: 'ТРК «Корстон»', status: 'Скоро' },
-  { date: '23 авг', city: 'Сочи', place: 'Зимний театр', status: 'Билеты' },
-];
 
 const media = [
   { type: 'Интервью', title: '«Музыка как исповедь» — большое интервью', source: 'Журнал «Шансон»', icon: 'Newspaper' },
@@ -248,28 +241,6 @@ const Index = () => {
           ))}
         </div>
       </Section>
-
-      {/* EVENTS */}
-      <div className="bg-card/30 border-y border-border">
-        <Section id="events" eyebrow="Афиша" title="События">
-          <div className="border border-border divide-y divide-border">
-            {events.map((e) => (
-              <div key={e.date + e.city} className="grid grid-cols-12 items-center gap-4 px-6 py-6 hover:bg-secondary/50 transition-colors">
-                <div className="col-span-3 sm:col-span-2 font-display text-xl text-gold uppercase">{e.date}</div>
-                <div className="col-span-9 sm:col-span-3 font-display text-lg uppercase">{e.city}</div>
-                <div className="hidden sm:block col-span-4 text-muted-foreground text-sm">{e.place}</div>
-                <div className="col-span-12 sm:col-span-3 sm:text-right mt-2 sm:mt-0">
-                  <button className={`inline-flex items-center gap-2 px-5 py-2 text-xs uppercase tracking-[0.2em] font-display transition-colors ${
-                    e.status === 'Билеты' ? 'bg-primary text-primary-foreground hover:opacity-90' : 'border border-border text-muted-foreground'
-                  }`}>
-                    {e.status}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Section>
-      </div>
 
       {/* RUTV */}
       <Section id="rutv" eyebrow="Телеканал РУ.ТВ" title="Афиша РУ.ТВ">
