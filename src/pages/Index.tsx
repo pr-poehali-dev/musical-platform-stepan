@@ -224,7 +224,22 @@ const Index = () => {
           <p className="text-muted-foreground -mt-8 mb-10 max-w-xl">
             Выбирайте любимую площадку — ВК Музыка, Яндекс Музыка или Радио Шансон — и слушайте прямо на сайте.
           </p>
-          <MusicPlayer />
+          <div className="flex flex-col lg:flex-row gap-10 items-start">
+            <div className="flex-1">
+              <MusicPlayer />
+            </div>
+            <div className="w-full lg:w-auto flex-shrink-0 flex justify-center">
+              <iframe
+                allowFullScreen
+                width="370"
+                height="400"
+                src="https://band.link/mMT7F/iframe?youtube_enabled=1&header=1&title=1&theme=light&player_enabled=1&picture=1&footer=0"
+                frameBorder="0"
+                scrolling="no"
+                style={{ maxWidth: '100%' }}
+              />
+            </div>
+          </div>
         </Section>
       </div>
 
